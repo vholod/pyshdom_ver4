@@ -6,6 +6,8 @@ json is used as it is human readable rather than netCDF.
 import json
 import xarray as xr
 
+
+
 def make_config(config_file_name, x_boundary_condition='open',
                 y_boundary_condition='open',
                 num_mu_bins=16, num_phi_bins=32,
