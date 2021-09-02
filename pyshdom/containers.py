@@ -237,13 +237,11 @@ class SensorsDict(OrderedDict):
         """Groups sensors by RTE solver for evaluation of observables.
         Also prepares measurements for cost/gradient calculation in inverse
         problem.
-
         `solvers` contains the solver.RTE objects that will be used to
         calculate the observables. This function groups all sensors in
         `self` by the keys of `solvers` and the inverse mapping.
         If `measurements` is not None then the inverse error-covariance
         is evaluated in preparation for evaluation of the cost function.
-
         Parameters
         ----------
         solvers : pyshdom.containers.SolversDict
@@ -252,7 +250,6 @@ class SensorsDict(OrderedDict):
         measurements : pyshdom.containers.SensorsDict
             This contains the actual measurement data that is used to constrain
             the retrieval.
-
         Returns
         -------
         rte_sensors : OrderedDict
@@ -262,7 +259,6 @@ class SensorsDict(OrderedDict):
         sensor_mappings : OrderedDict
             Keys are from `solvers` and the entries are the instrument name and
             index for mapping each entry in the sensor list back into `self`.
-
         Raises
         ------
         TypeError
@@ -309,7 +305,7 @@ class SensorsDict(OrderedDict):
             else:
                 for var in var_list:
                     concatenated = xr.concat([sensor[var] for sensor in sensor_list], dim='nrays')
-                    output[var] = ('nrays', concatenated)
+                    output[var] = ('nrays', concatenated.variable)
 
                 output['stokes'] = xr.concat([sensor.stokes for sensor in sensor_list], dim='nimage')
                 output['rays_per_image'] = ('nimage', np.array([sensor.sizes['nrays']
