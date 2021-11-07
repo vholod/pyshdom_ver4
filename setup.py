@@ -211,7 +211,7 @@ def configuration(parent_package='',top_path=None):
         # AND INSTALLATION FAILS THEN TRY COMMENTING THESE FLAGS OUT.
         # -JRLoveridge 2021/07/26
         #extra_f90_compile_args=["-fallow-argument-mismatch"],
-        extra_f77_compile_args=["-fallow-argument-mismatch"],
+        #extra_f77_compile_args=["-fallow-argument-mismatch"],
     )
 
     return config
