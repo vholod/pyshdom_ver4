@@ -553,6 +553,156 @@ def perspective_projection(wavelength, fov, x_resolution, y_resolution,
         sensor = _add_null_subpixel_rays(sensor)
     return sensor
 
+
+def show_sensors(sensor_list, scale = 0.6, axisWidth = 3.0, axisLenght=1.0, Show_Rays = False, FullCone = False):
+    """
+    It is a visualization of the camera ONLY is the sensor projection is of type 'Perspective'.
+    
+    
+    Show camera pyramid using mayavi.
+    
+    Parameters:
+    inpute:
+    sensor_list: list
+        The list of sensors.
+    scale: float, default=0.6
+        The scale of the camera cone
+    axisWidth: float, default=3.0
+        The Width of the quiver arrows in the plot
+    axisLenght: float, default=1.0
+        The length of the quiver arrows in the plot
+    Show_Rays is a flag
+         if true, show camera rays.
+    FullCone is a flag
+         if true, show camera cone from view point until flate ground.
+    """
+    
+    try:
+        import mayavi.mlab as mlab
+
+    except:
+        raise Exception("Make sure you installed mayavi")  
+
+    
+    for sensor in sensor_list:
+        
+        assert sensor.attrs['projection'] == 'Perspective', 'This function works ONLY on Perspective projection!'
+        
+        wavelength = sensor.wavelength
+        
+        figh = mlab.gcf()
+        origin, xaxis, yaxis, zaxis = [0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]
+            
+        tm_x = 0.5*np.deg2rad(sensor.fov_x_deg)
+        tm_y = 0.5*np.deg2rad(sensor.fov_y_deg)    
+        
+        a = scale
+        xm = -a*np.tan(tm_x)
+        xp = a*np.tan(tm_x)
+        ym = -a*np.tan(tm_y)
+        yp = a*np.tan(tm_y)
+        zt=a
+    
+        t = sensor.position.copy()
+        tT = t[np.newaxis].T
+        R = np.concatenate((sensor.rotation_matrix.reshape((3,-1)) , tT), axis = 1)
+        R = np.vstack((R,np.array([0,0,0,1])))
+    
+        Vert1 = np.dot(R,[xp,yp,zt,1])
+        Vert2 = np.dot(R,[xp,ym,zt,1])
+        Vert3 = np.dot(R,[xm,ym,zt,1])
+        Vert4 = np.dot(R,[xm,yp,zt,1])
+        Vert5 = np.dot(R,[0,0,0,1])
+        PrincPoint = np.dot(R,[0,0,zt,1])[:-1]
+    
+        x = [Vert1[0],Vert2[0],Vert3[0],Vert4[0],Vert5[0]]
+        y = [Vert1[1],Vert2[1],Vert3[1],Vert4[1],Vert5[1]]
+        z = [Vert1[2],Vert2[2],Vert3[2],Vert4[2],Vert5[2]]
+    
+        # camera cone
+        triangles = [[0 ,1,4],[1,2,4],[2,3,4],[3,0,4]];
+    
+        obj = mlab.triangular_mesh( x, y, z, triangles,color = (1.0, 0, 0.2),opacity=0.3,figure=figh)
+        obj = mlab.pipeline.extract_edges(obj)
+        obj = mlab.pipeline.surface(obj, opacity= 0, color=(0,0,0))
+    
+        # drow the axis
+        Ronly = R[0:3,0:3]
+        cam_dir_x =  np.dot(Ronly,xaxis)*axisWidth 
+        cam_dir_y =  np.dot(Ronly,yaxis)*axisWidth  
+        cam_dir_z =  np.dot(Ronly,zaxis)*axisWidth
+    
+        mlab.quiver3d(t[0],t[1],t[2], cam_dir_x[0], cam_dir_x[1], cam_dir_x[2], line_width=axisWidth,color = (1.0, 0, 0), scale_factor=axisLenght,figure=figh)
+        mlab.quiver3d(t[0],t[1],t[2], cam_dir_y[0], cam_dir_y[1], cam_dir_y[2], line_width=axisWidth,color = (0, 1.0, 0), scale_factor=axisLenght,figure=figh)
+        mlab.quiver3d(t[0],t[1],t[2], cam_dir_z[0], cam_dir_z[1], cam_dir_z[2], line_width=axisWidth,color = (0, 0, 1.0), scale_factor=axisLenght,figure=figh)
+    
+        
+
+        if(FullCone):
+            # intersection of a line with the ground surface (flat):
+            """
+            p_co, p_no: define the plane:
+            p_co is a point on the plane (plane coordinate).
+            p_no is a normal vector defining the plane direction.
+            """
+            p_co = np.array([0,0,0])# write your z value if you want it to be on TOA
+            p_no = np.array([0,0,1])
+            epsilon = 1e-6
+            Points_on_ground = []
+        
+            for i in range(4):
+        
+                u = [x[i],y[i],z[i]] - Vert5[:3]
+                Q = np.dot(p_no, u)
+        
+                if abs(Q) > epsilon:
+                    d = np.dot((p_co - Vert5[:3]),p_no)/Q
+                    point_on_ground = Vert5[:3] + (d*u)
+                    Points_on_ground.append(point_on_ground)
+        
+            Points_on_ground  = np.array(Points_on_ground)         
+            xtri = Points_on_ground[:,0].tolist()
+            xtri.append(t[0])
+            ytri = Points_on_ground[:,1].tolist()
+            ytri.append(t[1])
+            ztri = Points_on_ground[:,2].tolist()
+            ztri.append(t[2])        
+            # camera cone
+            triangles = [[0 ,1,4],[1,2,4],[2,3,4],[3,0,4]]
+            RandColor = np.random.rand(3) # for visualization purpos
+            RandColor = tuple(RandColor.tolist())   
+            obj = mlab.triangular_mesh( xtri, ytri, ztri, triangles,color = RandColor,opacity=0.2,figure=figh)
+            obj = mlab.pipeline.extract_edges(obj)  
+
+
+        if Show_Rays:
+            
+            # ------------------------------------------------------------
+            # -------draw the rays ---------------------------------------
+            # ------------------------------------------------------------
+            M = 5
+            ray_mus  = sensor.ray_mu[::M]
+            ray_phis = sensor.ray_phi[::M]
+            ray_xs   = sensor.ray_x[::M]
+            ray_ys   = sensor.ray_y[::M]
+            ray_zs   = sensor.ray_z[::M]
+        
+        
+            # angles to rays convertion
+            z_cc = -ray_mus
+            x_cc = -np.sin(np.arccos(ray_mus))*np.cos(ray_phis) 
+            y_cc = -np.sin(np.arccos(ray_mus))*np.sin(ray_phis)         
+            
+            # scale_factor=2*scale
+            inte_length = 2*scale
+            mlab.quiver3d(ray_xs, ray_ys, ray_zs, inte_length*x_cc, 
+                                      inte_length*y_cc, inte_length*z_cc,\
+                                      line_width=0.001,color = (0.6,1.0,0),opacity=0.2,mode='2ddash',scale_factor=1)#,scale_factor=2*scale 
+    
+            
+            
+        
+    
 def domaintop_projection(wavelength, bounding_box, x_resolution, y_resolution, azimuth, zenith,
                x_offset=0.0, y_offset=0.0, stokes='I',sub_pixel_ray_args={'method': None}):
     """

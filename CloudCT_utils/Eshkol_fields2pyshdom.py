@@ -10,6 +10,8 @@ import scipy.io as sio
 import os
 import logging
 from collections import OrderedDict
+from CloudCTUtils import *
+
 
 def float_round(x):
     """Round a float or np.float32 to a 3 digits float"""
@@ -41,6 +43,15 @@ base_path = '/wdata/clouds_from_weizmann/CASS_50m_256x256x139_600CCN' if is_bome
 cloud_name = f'CASS_256x256x139_50m_600CNN_micro_256_00000{cloud_id}_ONLY_RE_VE_LWC.mat' if is_bomex_or_cass == 'C' else f'BOMEX_512x512x170_500CCN_20m_micro_256_00000{cloud_id}_ONLY_RE_VE_LWC.mat'
 
 data_path = os.path.join(base_path, 'processed', cloud_name)
+
+is_crop = input("Enter S for skiping crop or C for crop: ")
+if_crop = False
+if is_crop == 'C':
+    if_crop = True
+elif is_crop == 'S':
+    print('skiping the crop -> use original cloud field.')
+else:
+    raise Exception("Unsupported INPUT")
 
 
 def create_and_configer_logger(log_name):
@@ -131,42 +142,59 @@ The new mediume will be padded with zeros on its outer boundaries.
 
 """
 
-# -------------------------------------------------------------------
-# -------------------------------------------------------------------
-# -------------------------------------------------------------------
-
-# 1.
-# -----------------------------------------------------
-# ---------------calc_high_map from LWC data-----------
-# -----------------------------------------------------
 REGULAR_LWC_DATA = np.nan_to_num(lwc)
-# type(EGULAR_LWC_DATA) is numpy.ndarray
-High_map = calc_high_map(REGULAR_LWC_DATA, zgrid)
 
-fig = plt.figure(figsize=(20, 20))
+if if_crop:
+    
+    # -------------------------------------------------------------------
+    # -------------------------------------------------------------------
+    # -------------------------------------------------------------------
+    
+    # 1.
+    # -----------------------------------------------------
+    # ---------------calc_high_map from LWC data-----------
+    # -----------------------------------------------------
+    # type(EGULAR_LWC_DATA) is numpy.ndarray
+    High_map = calc_high_map(REGULAR_LWC_DATA, zgrid)
+    
+    fig = plt.figure(figsize=(20, 20))
+    
+    plt.imshow(High_map, vmin=0, vmax=np.amax(High_map))
+    plt.title('Full High map')
+    plt.gca().invert_yaxis()
+    my_roi = RoiPoly(color='r')  # draw new ROI in red color
+    
+    # lets the user choose the roi.
+    my_roi.display_roi()
+    # Extracting a binary mask image.
+    mask = my_roi.get_mask(High_map)
 
-plt.imshow(High_map, vmin=0, vmax=np.amax(High_map))
-plt.title('Full High map')
-plt.gca().invert_yaxis()
-my_roi = RoiPoly(color='r')  # draw new ROI in red color
-
-# lets the user choose the roi.
-my_roi.display_roi()
-# Extracting a binary mask image.
-mask = my_roi.get_mask(High_map)
-
+else:
+    # don't crop:
+    mask = np.ones([nx, ny], dtype=bool)
+    
+    
 XX = np.arange(0, nx)
 YY = np.arange(0, ny)
 XX, YY = np.meshgrid(XX, YY, indexing='ij')
 
-Xpoints = np.trim_zeros((XX[mask]).ravel())
-Ypoints = np.trim_zeros((YY[mask]).ravel())
+if if_crop:
+    Xpoints = np.trim_zeros((XX[mask]).ravel())
+    Ypoints = np.trim_zeros((YY[mask]).ravel())
+    
+else:
+    Xpoints = XX.ravel()
+    Ypoints = YY.ravel()  
 
 min_x_index = min(Xpoints)
 min_y_index = min(Ypoints)
 
 max_x_index = max(Xpoints)
 max_y_index = max(Ypoints)
+
+# update the maim 3d matrix by the croped one to have better assess to the z max:
+REGULAR_LWC_DATA = REGULAR_LWC_DATA[min_x_index:max_x_index, min_y_index:max_y_index, :]
+
 
 logger.info("when cut from high map")
 logger.info("The min_x_index is {}".format(min_x_index))
@@ -323,7 +351,7 @@ mlab.show()
 
 
 # save the txt file:
-new_cloud_name = f"{cloud_name.split('_')[0]}_{cloud_id}_{new_nx}x{new_ny}x{new_nz}_{''.join([str(elem) for elem in np.random.randint(low=0, high=9, size=4)])}"
+new_cloud_name = f"{cloud_name.split('_')[0]}_{cloud_id}_{new_nx}x{new_ny}x{new_nz}_{''.join([str(elem) for elem in np.random.randint(low=0, high=9, size=4)])}.txt"
 file_name = os.path.join(base_path, 'cropped_for_new_pyshdom', new_cloud_name)
 logger.info(f'saving to {file_name}')
 
@@ -331,42 +359,8 @@ logger.info(f'saving to {file_name}')
 # -------------SAVE TO CSV --------------------------------
 # ---------------------------------------------------------
 
-"""
-------------- LIAM TODO ---------------.
+comment_line = '# A part of the data of Eshkol april 2020. Original cloud is {}'.format(cloud_name)
 
-A utility function to save a microphysical medium.
-After implementation put as a function in util.py under the name 
-save_to_csv.
-
-Format:
-
-
-Parameters
-----------
-path: str
-    Path to file.
-comment_line: str, optional
-    A comment line describing the file.
-
-
-Notes
------
-CSV format is as follows:
-# comment line (description)
-nx,ny,nz # nx,ny,nz
-dx,dy # dx,dy [km, km]
-z_levels[0]     z_levels[1] ...  z_levels[nz-1] 
-x,y,z,lwc,reff,veff
-ix,iy,iz,lwc[ix, iy, iz],reff[ix, iy, iz],veff[ix, iy, iz]
-.
-.
-.
-ix,iy,iz,lwc[ix, iy, iz],reff[ix, iy, iz],veff[ix, iy, iz]
-
-
-
-"""
-
-mlab.show()
+save_to_csv(cloud_scatterer, file_name, comment_line)
 
 logger.info('done')
