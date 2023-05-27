@@ -2,7 +2,7 @@ import mayavi.mlab as mlab
 import scipy.io as sio
 import matplotlib.pyplot as plt
 import numpy as np
-import pyshdom
+import at3d
 import matplotlib.pyplot as plt
 import mayavi.mlab as mlab
 import numpy as np
@@ -23,7 +23,7 @@ Currently, the lwc is given and I assume reff of 10.
 # -----------------------------------------------------
 # -------- Input parameters by the user:---------------
 # -----------------------------------------------------
-IFVISUALIZE = False
+IFVISUALIZE = True
 
 dx = 0.02 #km
 dy = 0.02 #km
@@ -35,21 +35,49 @@ dz = 0.02 #km
 # -----------------------------------------------------
 
 
-ref_path = "/wdata/pyshdom_yael/CloudGeometry/clouds from Udi/16samples"
+ref_path = "/wdata/vadim/CloudGeometry/clouds from Udi/16samples"
 FILES = sorted(glob.glob(ref_path + '/*.m'))
 
+FILES = ['BOMEX_512x512x200_20m_20m_1s_512_0000013880_0_1.m']
+FILES = [os.path.join(ref_path,i) for i in FILES]
+
 for lwc_path in FILES:
-    vol_name = os.path.split(lwc_path)[-1] 
+    vol_name = os.path.split(lwc_path)[-1].split('.')[0] 
     pysdom_output_file_name = os.path.join(ref_path, vol_name+'_new_pyshdom.txt')
+    old_pysdom_output_file_name = os.path.join(ref_path, vol_name+'_old_pyshdom.txt')
     
     print("loading the 3D mat from: {}".format(lwc_path))
-    lwc = sio.loadmat(lwc_path)['data'] 
+    data = sio.loadmat(lwc_path)
+    lwc = data['LWC']
+    reff = data['Reff']
+    z = data['z']
+    
     nz, nx, ny = lwc.shape
+    
+    #----------------------------------
+    
+    XX = np.linspace(0, (nx-1)*dx, nx)
+    YY = np.linspace(0, (ny-1)*dy, ny)
+    zgrid = np.linspace(0, (nz-1)*dz, nz)
+    # TODO - Ask Udi for the z0.
+    z0 = 30.0*dz # assume 600 meter, so 0.6/0.02
+    zgrid += z0
+    
+    XX, YY ,ZZ = np.meshgrid(XX, YY, zgrid, indexing='ij')
+
+
+    
     lwc = np.transpose(lwc, (1, 2, 0)) # Since udi use z , x , y shape
-    # TODO - read also the REFF and transfer to the output csv file.
-    reff = np.zeros_like(lwc)
+    reff = np.transpose(reff, (1, 2, 0))
+    
+    #reff = np.zeros_like(lwc)
     veff = np.zeros_like(lwc)
-    reff[lwc>0] = 10
+    
+    Zh = zgrid - (z0 - (1*dz))
+    Zh[Zh < 0] = 0    
+    #reff_profile = (10 * Zh ** (1. / 3.)) + 2.5 # microns
+    #reff_data = np.tile(reff_profile[np.newaxis, np.newaxis, :], (nx, ny, 1))
+    #reff[lwc>0] = reff_data[lwc>0]
     veff[lwc>0] = 0.1
     DATA_DICT = OrderedDict()
     DATA_DICT['lwc']  = lwc
@@ -57,12 +85,7 @@ for lwc_path in FILES:
     DATA_DICT['veff'] = veff
     
     #----------------------------------
-    
-    XX = np.linspace(0, (nx-1)*dx, nx)
-    YY = np.linspace(0, (ny-1)*dy, ny)
-    zgrid = np.linspace(0, (nz-1)*dz, nz)
-    XX, YY ,ZZ = np.meshgrid(XX, YY, zgrid, indexing='ij')
-    
+ 
     index_x = np.arange(0, nx)
     index_y = np.arange(0, ny)
     index_z = np.arange(0, nz)
@@ -94,7 +117,7 @@ for lwc_path in FILES:
     # Convert medium to pyshdom:
     # set grid using new pyshdom:
     # make a grid for microphysics which is just the cloud grid.
-    cloud_scatterer = pyshdom.grid.make_grid(dx,nx,\
+    cloud_scatterer = at3d.grid.make_grid(dx,nx,\
                               dy,ny,zgrid)
     
     non_zero_indexes = np.where(DATA_DICT['lwc']>0)
@@ -128,6 +151,7 @@ for lwc_path in FILES:
     
     comment_line = '# A part of the Udis data 2022. Original cloud is {}'.format(vol_name)
     save_to_csv(cloud_scatterer, pysdom_output_file_name, comment_line)
+    save_to_csv(cloud_scatterer, old_pysdom_output_file_name, comment_line, OLDPYSHDOM = True)
 
 
 print('done')

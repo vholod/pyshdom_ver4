@@ -2,7 +2,7 @@ import mayavi.mlab as mlab
 import scipy.io as sio
 import matplotlib.pyplot as plt
 import numpy as np
-import pyshdom
+import at3d
 import matplotlib.pyplot as plt
 import mayavi.mlab as mlab
 import numpy as np
@@ -285,7 +285,7 @@ logger.info("The max_z_coordinates is {}".format(max_z_coordinates))
 NEW_DATA_DICT = OrderedDict() # after crop and pad
 # set grid using new pyshdom:
 # make a grid for microphysics which is just the cloud grid.
-cloud_scatterer = pyshdom.grid.make_grid(dx,new_nx,\
+cloud_scatterer = at3d.grid.make_grid(dx,new_nx,\
                           dy,new_ny,updated_zgrid)
 
 non_zero_indexes = np.where(CROPED_DATA_DICT['lwc']>0)
@@ -353,6 +353,9 @@ mlab.show()
 # save the txt file:
 new_cloud_name = f"{cloud_name.split('_')[0]}_{cloud_id}_{new_nx}x{new_ny}x{new_nz}_{''.join([str(elem) for elem in np.random.randint(low=0, high=9, size=4)])}.txt"
 file_name = os.path.join(base_path, 'cropped_for_new_pyshdom', new_cloud_name)
+
+new_cloud_name = new_cloud_name.split('.')[0] + '_old_pyshdom.txt'
+old_pysdom_output_file_name = os.path.join(base_path, 'cropped_for_new_pyshdom', new_cloud_name)
 logger.info(f'saving to {file_name}')
 
 # ---------------------------------------------------------
@@ -362,5 +365,6 @@ logger.info(f'saving to {file_name}')
 comment_line = '# A part of the data of Eshkol april 2020. Original cloud is {}'.format(cloud_name)
 
 save_to_csv(cloud_scatterer, file_name, comment_line)
+save_to_csv(cloud_scatterer, old_pysdom_output_file_name, comment_line, OLDPYSHDOM = True)
 
 logger.info('done')
