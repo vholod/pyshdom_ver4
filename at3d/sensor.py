@@ -468,6 +468,11 @@ def perspective_projection(wavelength, fov, x_resolution, y_resolution,
     x = np.full(npix, position[0], dtype=np.float32)
     y = np.full(npix, position[1], dtype=np.float32)
     z = np.full(npix, position[2], dtype=np.float32)
+    
+    # CLOUDCT, Calculate camera projection:
+    G = np.hstack([rotation_matrix.T, -rotation_matrix.T @ position.reshape(3, 1)])
+    projection_matrix = k @ G    
+    # ------------------------------------------
 
     image_shape = [nx,ny]
     sensor = make_sensor_dataset(x.ravel(), y.ravel(), z.ravel(),
@@ -490,7 +495,9 @@ def perspective_projection(wavelength, fov, x_resolution, y_resolution,
         'position': position,
         'lookat': lookat,
         'rotation_matrix': rotation_matrix.ravel(),
-        'sensor_to_camera_transform_matrix':k.ravel()
+        'projection_matrix': projection_matrix.ravel(),
+        'sensor_to_camera_transform_matrix':k.ravel(),
+        'is_ideal_pointing':True # CloudCT usage, default use is True, but if we add pointing noise, it is False.
 
     }
 
