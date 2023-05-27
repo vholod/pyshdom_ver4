@@ -22,6 +22,7 @@ from pathlib import Path
 import at3d.core
 import at3d.solver
 import at3d.grid
+import at3d.configuration
 
 def github_version():
     """
@@ -522,8 +523,8 @@ def load_forward_model(file_name):
         for i, image in sensor.groups.items():
             sensor_dataset = xr.open_dataset(xr.backends.NetCDF4DataStore(dataset[
                 'sensors/'+str(key)+'/'+str(i)]))
-            sensor_dataset['stokes'] = (['stokes_index'],sensor_dataset['stokes'].data.astype(np.bool))
-            sensor_dataset['use_subpixel_rays'] = sensor_dataset['use_subpixel_rays'].data.astype(np.bool)
+            sensor_dataset['stokes'] = (['stokes_index'],sensor_dataset['stokes'].data.astype(bool))
+            sensor_dataset['use_subpixel_rays'] = sensor_dataset['use_subpixel_rays'].data.astype(bool)
             sensor_dict.add_sensor(key, sensor_dataset)
         #     sensor_list.append(xr.open_dataset(xr.backends.NetCDF4DataStore(dataset[
         #         'sensors/'+str(key)+'/'+str(i)])))
@@ -532,8 +533,8 @@ def load_forward_model(file_name):
     for key, solver in solvers.items():
         numerical_params = xr.open_dataset(xr.backends.NetCDF4DataStore(dataset[
                         'solvers/'+str(key)+'/numerical_parameters']))
-        numerical_params['deltam'] = numerical_params.deltam.data.astype(np.bool)
-        numerical_params['high_order_radiance'] = numerical_params.high_order_radiance.data.astype(np.bool)
+        numerical_params['deltam'] = numerical_params.deltam.data.astype(bool)
+        numerical_params['high_order_radiance'] = numerical_params.high_order_radiance.data.astype(bool)
         num_stokes = numerical_params.num_stokes.data
         surface = xr.open_dataset(xr.backends.NetCDF4DataStore(dataset['solvers/'+str(key)+'/surface']))
         source = xr.open_dataset(xr.backends.NetCDF4DataStore(dataset['solvers/'+str(key)+'/source']))
@@ -549,8 +550,13 @@ def load_forward_model(file_name):
         else:
             atmosphere=None
 
-        numerical_params['transcut'] = 1e-5
-        numerical_params['angle_set'] = 2
+        default_config = at3d.configuration.get_config()
+        for name in default_config:
+            if not name in numerical_params:
+                numerical_params[name] = default_config[name]
+
+        #numerical_params['transcut'] = 1e-5
+        #numerical_params['angle_set'] = 2
 
         solver_dict.add_solver(float(key), at3d.solver.RTE(numerical_params=numerical_params,
                                             medium=mediums,
