@@ -1,0 +1,90 @@
+[2021-12-05 15:49:26,537] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:86} INFO - ------------- New Crop ---------------
+[2021-12-05 15:49:26,537] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:87} INFO - load /wdata/clouds_from_weizmann/CASS_50m_256x256x139_600CCN/processed/CASS_256x256x139_50m_600CNN_micro_256_0000055080_ONLY_RE_VE_LWC.mat
+[2021-12-05 16:01:34,607] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:86} INFO - ------------- New Crop ---------------
+[2021-12-05 16:01:34,608] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:87} INFO - load /wdata/clouds_from_weizmann/BOMEX_512X512X170_500CCN_20m/processed/BOMEX_512x512x170_500CCN_20m_micro_256_0000055080_ONLY_RE_VE_LWC.mat
+[2021-12-05 16:01:39,373] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:96} INFO - nx:512, ny:512, nz:170
+[2021-12-05 16:01:39,374] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:99} INFO - x_min, y_min, z_min, x_max, y_max, z_max:0.0, 0.0, 0.009999999776482582, 10.220000267028809, 10.220000267028809, 3.9749999046325684
+[2021-12-05 16:01:39,375] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:103} INFO - dx:[0.02],dy:[0.02]
+[2021-12-06 13:01:37,734] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:93} INFO - ------------- New Crop ---------------
+[2021-12-06 13:01:37,735] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:94} INFO - load /wdata/clouds_from_weizmann/BOMEX_512X512X170_500CCN_20m/processed/BOMEX_512x512x170_500CCN_20m_micro_256_0000055080_ONLY_RE_VE_LWC.mat
+[2021-12-06 13:01:38,108] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:103} INFO - nx:512, ny:512, nz:170
+[2021-12-06 13:01:38,108] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:106} INFO - x_min, y_min, z_min, x_max, y_max, z_max:0.0, 0.0, 0.009999999776482582, 10.220000267028809, 10.220000267028809, 3.9749999046325684
+[2021-12-06 13:01:38,109] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:111} INFO - dx:[0.02],dy:[0.02]
+[2021-12-06 13:02:55,826] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:93} INFO - ------------- New Crop ---------------
+[2021-12-06 13:02:55,826] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:94} INFO - load /wdata/clouds_from_weizmann/BOMEX_512X512X170_500CCN_20m/processed/BOMEX_512x512x170_500CCN_20m_micro_256_0000055080_ONLY_RE_VE_LWC.mat
+[2021-12-06 13:02:56,157] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:103} INFO - nx:512, ny:512, nz:170
+[2021-12-06 13:02:56,158] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:106} INFO - x_min, y_min, z_min, x_max, y_max, z_max:0.0, 0.0, 0.009999999776482582, 10.220000267028809, 10.220000267028809, 3.9749999046325684
+[2021-12-06 13:02:56,159] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:111} INFO - dx:[0.02],dy:[0.02]
+[2021-12-06 13:04:01,285] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:171} INFO - when cut from high map
+[2021-12-06 13:04:01,614] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:172} INFO - The min_x_index is 146
+[2021-12-06 13:04:01,908] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:173} INFO - The min_y_index is 303
+[2021-12-06 13:04:02,220] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:174} INFO - The max_x_index is 183
+[2021-12-06 13:04:02,598] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:175} INFO - The max_y_index is 354
+[2021-12-06 13:06:45,917] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:93} INFO - ------------- New Crop ---------------
+[2021-12-06 13:06:45,917] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:94} INFO - load /wdata/clouds_from_weizmann/BOMEX_512X512X170_500CCN_20m/processed/BOMEX_512x512x170_500CCN_20m_micro_256_0000055080_ONLY_RE_VE_LWC.mat
+[2021-12-06 13:06:46,260] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:103} INFO - nx:512, ny:512, nz:170
+[2021-12-06 13:06:46,260] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:106} INFO - x_min, y_min, z_min, x_max, y_max, z_max:0.0, 0.0, 0.009999999776482582, 10.220000267028809, 10.220000267028809, 3.9749999046325684
+[2021-12-06 13:06:46,261] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:111} INFO - dx:[0.02],dy:[0.02]
+[2021-12-06 13:07:21,268] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:171} INFO - when cut from high map
+[2021-12-06 13:07:21,269] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:172} INFO - The min_x_index is 147
+[2021-12-06 13:07:21,269] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:173} INFO - The min_y_index is 304
+[2021-12-06 13:07:21,270] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:174} INFO - The max_x_index is 181
+[2021-12-06 13:07:21,270] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:175} INFO - The max_y_index is 353
+[2021-12-06 13:08:43,493] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:235} INFO - After the cut from high map
+[2021-12-06 13:08:44,214] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:236} INFO - The min_x_coordinates is 2.9
+[2021-12-06 13:08:44,524] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:237} INFO - The min_y_coordinates is 6.04
+[2021-12-06 13:08:44,799] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:238} INFO - The max_x_coordinates is 3.64
+[2021-12-06 13:08:45,032] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:239} INFO - The max_y_coordinates is 7.08
+[2021-12-06 13:08:45,308] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:240} INFO - The min_z_coordinates is -1.33
+[2021-12-06 13:08:45,553] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:241} INFO - The max_z_coordinates is 3.93
+[2021-12-06 13:47:39,317] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:93} INFO - ------------- New Crop ---------------
+[2021-12-06 13:47:39,317] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:94} INFO - load /wdata/clouds_from_weizmann/BOMEX_512X512X170_500CCN_20m/processed/BOMEX_512x512x170_500CCN_20m_micro_256_0000055080_ONLY_RE_VE_LWC.mat
+[2021-12-06 13:47:39,678] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:103} INFO - nx:512, ny:512, nz:170
+[2021-12-06 13:47:39,678] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:106} INFO - x_min, y_min, z_min, x_max, y_max, z_max:0.0, 0.0, 0.009999999776482582, 10.220000267028809, 10.220000267028809, 3.9749999046325684
+[2021-12-06 13:47:39,679] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:111} INFO - dx:[0.02],dy:[0.02]
+[2021-12-06 13:47:49,322] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:171} INFO - when cut from high map
+[2021-12-06 13:47:49,323] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:172} INFO - The min_x_index is 148
+[2021-12-06 13:47:49,323] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:173} INFO - The min_y_index is 308
+[2021-12-06 13:47:49,323] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:174} INFO - The max_x_index is 179
+[2021-12-06 13:47:49,323] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:175} INFO - The max_y_index is 349
+[2021-12-06 13:58:35,377] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:241} INFO - After the cut from high map
+[2021-12-06 13:59:30,730] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:242} INFO - The min_x_coordinates is 2.92
+[2021-12-06 13:59:31,176] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:243} INFO - The min_y_coordinates is 6.12
+[2021-12-06 13:59:31,489] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:244} INFO - The max_x_coordinates is 3.6
+[2021-12-06 13:59:31,765] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:245} INFO - The max_y_coordinates is 7.0
+[2021-12-06 13:59:32,093] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:246} INFO - The min_z_coordinates is 0.63
+[2021-12-06 13:59:32,553] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:247} INFO - The max_z_coordinates is 1.97
+[2021-12-06 14:26:44,924] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:93} INFO - ------------- New Crop ---------------
+[2021-12-06 14:26:44,924] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:94} INFO - load /wdata/clouds_from_weizmann/BOMEX_512X512X170_500CCN_20m/processed/BOMEX_512x512x170_500CCN_20m_micro_256_0000055080_ONLY_RE_VE_LWC.mat
+[2021-12-06 14:26:45,243] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:103} INFO - nx:512, ny:512, nz:170
+[2021-12-06 14:26:45,243] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:106} INFO - x_min, y_min, z_min, x_max, y_max, z_max:0.0, 0.0, 0.009999999776482582, 10.220000267028809, 10.220000267028809, 3.9749999046325684
+[2021-12-06 14:26:45,244] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:111} INFO - dx:[0.02],dy:[0.02]
+[2021-12-06 14:26:56,513] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:171} INFO - when cut from high map
+[2021-12-06 14:26:56,513] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:172} INFO - The min_x_index is 148
+[2021-12-06 14:26:56,513] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:173} INFO - The min_y_index is 300
+[2021-12-06 14:26:56,513] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:174} INFO - The max_x_index is 180
+[2021-12-06 14:26:56,513] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:175} INFO - The max_y_index is 355
+[2021-12-06 14:27:02,147] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:249} INFO - After the cut from high map
+[2021-12-06 14:27:02,148] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:250} INFO - The min_x_coordinates is 2.92
+[2021-12-06 14:27:02,148] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:251} INFO - The min_y_coordinates is 5.96
+[2021-12-06 14:27:02,148] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:252} INFO - The max_x_coordinates is 3.62
+[2021-12-06 14:27:02,148] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:253} INFO - The max_y_coordinates is 7.12
+[2021-12-06 14:27:02,149] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:254} INFO - The min_z_coordinates is 0.63
+[2021-12-06 14:27:02,149] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:255} INFO - The max_z_coordinates is 1.97
+[2021-12-06 14:40:33,867] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:93} INFO - ------------- New Crop ---------------
+[2021-12-06 14:40:33,868] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:94} INFO - load /wdata/clouds_from_weizmann/BOMEX_512X512X170_500CCN_20m/processed/BOMEX_512x512x170_500CCN_20m_micro_256_0000055080_ONLY_RE_VE_LWC.mat
+[2021-12-06 14:40:34,214] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:103} INFO - nx:512, ny:512, nz:170
+[2021-12-06 14:40:34,214] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:106} INFO - x_min, y_min, z_min, x_max, y_max, z_max:0.0, 0.0, 0.009999999776482582, 10.220000267028809, 10.220000267028809, 3.9749999046325684
+[2021-12-06 14:40:34,215] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:111} INFO - dx:[0.02],dy:[0.02]
+[2021-12-06 14:40:43,082] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:171} INFO - when cut from high map
+[2021-12-06 14:40:43,082] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:172} INFO - The min_x_index is 153
+[2021-12-06 14:40:43,082] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:173} INFO - The min_y_index is 307
+[2021-12-06 14:40:43,082] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:174} INFO - The max_x_index is 178
+[2021-12-06 14:40:43,082] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:175} INFO - The max_y_index is 359
+[2021-12-06 14:40:55,387] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:249} INFO - After the cut from high map
+[2021-12-06 14:40:55,387] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:250} INFO - The min_x_coordinates is 3.02
+[2021-12-06 14:40:55,388] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:251} INFO - The min_y_coordinates is 6.1
+[2021-12-06 14:40:55,388] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:252} INFO - The max_x_coordinates is 3.58
+[2021-12-06 14:40:55,388] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:253} INFO - The max_y_coordinates is 7.2
+[2021-12-06 14:40:55,388] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:254} INFO - The min_z_coordinates is 0.63
+[2021-12-06 14:40:55,389] {/home/vhold/CloudCT/pyshdom_ver4/CloudCT_utils/Eshkol_fields2pyshdom.py:255} INFO - The max_z_coordinates is 1.97
