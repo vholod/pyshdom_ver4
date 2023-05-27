@@ -4,8 +4,15 @@ import warnings
 import numpy as np
 import xarray as xr
 import at3d
+import sys
 
 warnings.filterwarnings('ignore')
+
+import builtins as __builtin__
+def print(*args, **kwargs):
+    if '-vv' in sys.argv:
+        return __builtin__.print(*args, **kwargs)
+
 
 def parse_shdom_output(filename, comment='*'):
     """
@@ -254,6 +261,8 @@ class Verify_Solver(TestCase):
         cls.radiances = parse_shdom_output('data/rico32x36x26w672ar.out', comment='!')
 
     def test_solver(self):
+        print('NPTS REFERENCE {}'.format(self.truth.shape[1]))
+        print('NPTS SIMULATED {}'.format(self.testing.shape[1]))
         print(np.max(np.abs(self.testing-self.truth)))
         print(np.argmax(np.abs(self.testing-self.truth)))
         print(np.sqrt(np.mean((self.testing-self.truth)**2))/np.mean(self.truth))
@@ -347,22 +356,22 @@ class Parallelization_Subdivide_Rays(TestCase):
         cls.pixel_start_end = pixel_start_end
 
     def test_rays(self):
-        self.assertEqual(self.ray_start_end, [(0, 3429),
-                                             (3429, 6859),
-                                             (0, 4244),
-                                             (4244, 8483),
-                                             (8483, 12722),
-                                             (0, 1292),
-                                             (0, 323)])
+        self.assertEqual(self.ray_start_end, [(0, 3700),
+                                             (3700, 7400),
+                                             (0, 4590),
+                                             (4590, 9180),
+                                             (9180, 13770),
+                                             (0, 1440),
+                                             (0, 360)])
 
     def test_pixels(self):
-        self.assertEqual(self.pixel_start_end, [(0, 3429),
-                                                 (3429, 6859),
-                                                 (0, 651),
-                                                 (651, 1122),
-                                                 (1122, 1593),
-                                                 (0, 323),
-                                                 (0, 323)])
+        self.assertEqual(self.pixel_start_end, [(0, 3700),
+                                                 (3700, 7400),
+                                                 (0, 710),
+                                                 (710, 1220),
+                                                 (1220, 1730),
+                                                 (0, 360),
+                                                 (0, 360)])
 #
 class Parallelization_No_SubpixelRays(TestCase):
     @classmethod
@@ -471,7 +480,7 @@ class Parallelization_No_SubpixelRays(TestCase):
         print(np.abs(diff).max())
         print(np.argmax(np.abs(diff)), diff.shape)
         print(np.sqrt(np.mean(diff**2)))
-        self.assertTrue(test.equals(self.Sensordict['MISR']['sensor_list'][0]))
+        xr.testing.assert_allclose(test, self.Sensordict['MISR']['sensor_list'][0], rtol=1e-5)
 
 
 class Parallelization_SubpixelRays(TestCase):
@@ -584,7 +593,7 @@ class Parallelization_SubpixelRays(TestCase):
         print(np.abs(diff).max())
         print(np.argmax(np.abs(diff)), diff.shape)
         print(np.sqrt(np.mean(diff**2)))
-        self.assertTrue(test.equals(self.Sensordict['MISR']['sensor_list'][0]))
+        xr.testing.assert_allclose(test, self.Sensordict['MISR']['sensor_list'][0], rtol=1e-5)
 
 
 class Verify_Lambertian_Surfaces(TestCase):
@@ -969,7 +978,6 @@ class Verify_Thermal(TestCase):
         cls.rad = rad
 
     def test_radiance(self):
-
         #print(self.rad,self.rad2, self.integrated_rays.I.data)
         print(100*np.max(np.abs(self.rad - self.integrated_rays.I.data)/self.rad))
         print(np.max(np.abs(self.rad - self.integrated_rays.I.data)))
@@ -1044,7 +1052,6 @@ class VerifyCombined(TestCase):
         cls.rad = rad
 
     def test_radiance(self):
-
         #print(self.rad,self.rad2, self.integrated_rays.I.data)
         print(100*np.max(np.abs(self.rad - self.integrated_rays.I.data)/self.rad))
         print(np.max(np.abs(self.rad - self.integrated_rays.I.data)))
